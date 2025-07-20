@@ -1,16 +1,29 @@
 part of 'exam_bloc.dart';
 
-abstract class ExamEvent {}
-
-class GetSubjectsEvent extends ExamEvent{}
-
-class GetExamsEvent extends ExamEvent{
-   String subjectID;
-  GetExamsEvent(this.subjectID);
+abstract class ExamEvent extends Equatable {
+  const ExamEvent();
+  @override
+  List<Object?> get props => [];
 }
 
-class GetQuestionsEvent extends ExamEvent{
-  String examID;
-  GetQuestionsEvent(this.examID);
-
+class GetSubjectsEvent extends ExamEvent {
+  const GetSubjectsEvent(); //
 }
+
+class GetExamsEvent extends ExamEvent {
+  final String subjectID;
+  const GetExamsEvent(this.subjectID);
+
+  @override
+  List<Object?> get props => [subjectID];
+}
+
+class GetQuestionsEvent extends ExamEvent {
+  final String examID;
+  const GetQuestionsEvent(this.examID);
+
+  @override
+  List<Object?> get props => [examID];
+}
+
+

@@ -1,61 +1,62 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart'; // علشان @immutable
 import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/question_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 
 enum RequestState { init, loading, success, error }
-class ExamState {
-   RequestState? subjectsRequestState;
-   List<SubjectModel>? subjects;
 
-   RequestState? examsRequestState;
-   List<ExamModel>? exams;
+@immutable
+class ExamState extends Equatable {
+  final RequestState subjectsRequestState;
+  final List<SubjectModel> subjects;
 
-   RequestState? questionsRequestState;
-   List<QuestionModel>? questions;
+  final RequestState examsRequestState;
+  final List<ExamModel> exams;
 
-   String? errorMessage;
+  final RequestState questionsRequestState;
+  final List<QuestionModel> questions;
 
-   ExamState({
-    this.subjectsRequestState,
-    this.subjects,
-     this.examsRequestState,
-     this.exams,
-    this.questionsRequestState,
-    this.questions,
-    this.errorMessage,
+  final String errorMessage;
+
+  const ExamState({
+    this.subjectsRequestState = RequestState.init,
+    this.subjects = const [],
+    this.examsRequestState = RequestState.init,
+    this.exams = const [],
+    this.questionsRequestState = RequestState.init,
+    this.questions = const [],
+    this.errorMessage = '',
   });
 
-   ExamState copyWith({
+  ExamState copyWith({
     RequestState? subjectsRequestState,
     List<SubjectModel>? subjects,
-     RequestState? examsRequestState,
-     List<ExamModel>? exams,
-     RequestState? questionsRequestState,
-     List<QuestionModel>? questions,
-     String? errorMessage,
-
+    RequestState? examsRequestState,
+    List<ExamModel>? exams,
+    RequestState? questionsRequestState,
+    List<QuestionModel>? questions,
+    String? errorMessage,
   }) {
     return ExamState(
       subjectsRequestState: subjectsRequestState ?? this.subjectsRequestState,
       subjects: subjects ?? this.subjects,
-      examsRequestState: examsRequestState ??this.examsRequestState,
-      exams: exams??this.exams,
-      questionsRequestState: questionsRequestState??this.questionsRequestState,
-      questions: questions??this.questions,
+      examsRequestState: examsRequestState ?? this.examsRequestState,
+      exams: exams ?? this.exams,
+      questionsRequestState: questionsRequestState ?? this.questionsRequestState,
+      questions: questions ?? this.questions,
       errorMessage: errorMessage ?? this.errorMessage,
-
     );
   }
-}
 
-class ExamInitial extends ExamState {
-   ExamInitial() : super(
-    errorMessage: "",
-       subjectsRequestState: RequestState.init,
-    examsRequestState: RequestState.init,
-    questionsRequestState: RequestState.init,
-    questions: [],
-    exams: [],
-    subjects: []
-  );
+  @override
+  List<Object?> get props => [
+    subjectsRequestState,
+    subjects,
+    examsRequestState,
+    exams,
+    questionsRequestState,
+    questions,
+    errorMessage,
+  ];
 }
