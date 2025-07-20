@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
-// import 'package:online_exam/features/exam/presentation/screens/home_screen.dart';
-// import '../features/auth/presentation/Screen/Login&sinin/forget_password_flow.dart';
-// import '../features/auth/presentation/bloc/signup/sinup_page.dart';
-// import '../features/auth/presentation/bloc/login/login_page.dart';
-// import '../main.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/exams_screen.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/subjects_screen.dart';
 
 abstract class AppRoutes {
-  static const String login = '/login';
-  static const String signup = '/signup';
-  static const String forgetpass = '/forgetpass';
-  static const String home='/home';
-  static Map<String, WidgetBuilder> getRoutes() {
-    return {
-      // login: (context) => LoginPage(),
-      // forgetpass: (context) => const ForgetPasswordFlow(),
-      // signup: (context) =>  SignupPage(),
-      // home: (context) => HomeScreen()
-    };
+  static const String home = '/home';
+  static const String examBySubject = '/examBySubject';
+  static const String questions = '/questions';
+
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case home:
+        return MaterialPageRoute(builder: (_) => const SubjectsScreen());
+
+      case examBySubject:
+        final subjectId = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => ExamsScreen(subjectId: subjectId));
+
+      case questions:
+        final examID = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => ExamsScreen(subjectId: examID));
+
+
+
+      default:
+        return MaterialPageRoute(
+            builder: (_) => const Scaffold(
+              body: Center(child: Text('No route found')),
+            ));
+    }
   }
 }

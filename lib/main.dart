@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'config/routes_manager/app_routes.dart';
 import 'core/di/di.dart';
 import 'core/utils/assets_manager.dart';
 import 'core/utils/constants/constants.dart';
@@ -10,7 +11,10 @@ void main() async {
   configureDependencies();
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale(Constants.enLocalKey), Locale(Constants.arLocalKey)],
+      supportedLocales: [
+        Locale(Constants.enLocalKey),
+        Locale(Constants.arLocalKey),
+      ],
       path: translationsPath,
       child: MyApp(),
     ),
@@ -27,8 +31,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      // initialRoute: AppRoutes.login,
-      // routes: AppRoutes.getRoutes(),
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: AppRoutes.generateRoute,
     );
   }
 }
