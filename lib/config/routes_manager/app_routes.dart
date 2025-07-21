@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam_app_f/features/exam/presentation/screens/exams_screen.dart';
-import 'package:online_exam_app_f/features/exam/presentation/screens/subjects_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app_f/core/di/di.dart';
+import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/home_layout.dart';
 
 abstract class AppRoutes {
   static const String home = '/home';
@@ -10,25 +12,20 @@ abstract class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
-        return MaterialPageRoute(builder: (_) => const SubjectsScreen());
-
-      case examBySubject:
-        final subjectId = settings.arguments as String;
         return MaterialPageRoute(
-            builder: (_) => ExamsScreen(subjectId: subjectId));
-
-      case questions:
-        final examID = settings.arguments as String;
-        return MaterialPageRoute(
-            builder: (_) => ExamsScreen(subjectId: examID));
-
-
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ExamBloc>(),
+            child: const HomeLayout(),
+          ),
+        );
+        
 
       default:
         return MaterialPageRoute(
-            builder: (_) => const Scaffold(
-              body: Center(child: Text('No route found')),
-            ));
+          builder: (_) => const Scaffold(
+            body: Center(child: Text('No route found')),
+          ),
+        );
     }
   }
 }
