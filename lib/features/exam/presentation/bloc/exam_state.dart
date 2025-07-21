@@ -10,6 +10,8 @@ enum RequestState { init, loading, success, error }
 class ExamState extends Equatable {
   final RequestState subjectsRequestState;
   final List<SubjectModel> subjects;
+  final List<SubjectModel> allSubjects;
+  final String searchKeyword;
 
   final RequestState examsRequestState;
   final List<ExamModel> exams;
@@ -17,34 +19,46 @@ class ExamState extends Equatable {
   final RequestState questionsRequestState;
   final List<QuestionModel> questions;
 
+  final int currentTabIndex;
+
   final String errorMessage;
 
   const ExamState({
     this.subjectsRequestState = RequestState.init,
     this.subjects = const [],
+    this.allSubjects = const [],
+    this.searchKeyword = '',
     this.examsRequestState = RequestState.init,
     this.exams = const [],
     this.questionsRequestState = RequestState.init,
     this.questions = const [],
+    this.currentTabIndex = 0,
     this.errorMessage = '',
   });
 
   ExamState copyWith({
     RequestState? subjectsRequestState,
     List<SubjectModel>? subjects,
+    List<SubjectModel>? allSubjects,
+    String? searchKeyword,
     RequestState? examsRequestState,
     List<ExamModel>? exams,
     RequestState? questionsRequestState,
     List<QuestionModel>? questions,
+    int? currentTabIndex,
     String? errorMessage,
   }) {
     return ExamState(
       subjectsRequestState: subjectsRequestState ?? this.subjectsRequestState,
       subjects: subjects ?? this.subjects,
+      allSubjects: allSubjects ?? this.allSubjects,
+      searchKeyword: searchKeyword ?? this.searchKeyword,
       examsRequestState: examsRequestState ?? this.examsRequestState,
       exams: exams ?? this.exams,
-      questionsRequestState: questionsRequestState ?? this.questionsRequestState,
+      questionsRequestState:
+          questionsRequestState ?? this.questionsRequestState,
       questions: questions ?? this.questions,
+      currentTabIndex: currentTabIndex ?? this.currentTabIndex,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
@@ -57,6 +71,7 @@ class ExamState extends Equatable {
     exams,
     questionsRequestState,
     questions,
+    currentTabIndex,
     errorMessage,
   ];
 }

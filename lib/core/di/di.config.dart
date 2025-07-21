@@ -23,6 +23,8 @@ import '../../features/exam/domain/usecases/get_exam_usecase.dart' as _i90;
 import '../../features/exam/domain/usecases/get_questions_usecase.dart'
     as _i968;
 import '../../features/exam/domain/usecases/get_subjects_usecase.dart' as _i418;
+import '../../features/exam/domain/usecases/search_subjects_usecase.dart'
+    as _i430;
 import '../../features/exam/presentation/bloc/exam_bloc.dart' as _i745;
 import '../network/token_interspector.dart' as _i215;
 import 'modules/dio_modules.dart' as _i288;
@@ -35,6 +37,9 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
+    gh.factory<_i430.SearchSubjectsUseCase>(
+      () => _i430.SearchSubjectsUseCase(),
+    );
     gh.lazySingleton<_i215.TokenInterceptor>(() => _i215.TokenInterceptor());
     gh.lazySingleton<_i361.Dio>(
       () => dioModule.dio(gh<_i215.TokenInterceptor>()),
@@ -46,20 +51,21 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i569.ExamRepo>(
       () => _i145.ExamRepoImpl(gh<_i290.ExamRemoteDs>()),
     );
-    gh.factory<_i418.GetSubjectsUsecase>(
-      () => _i418.GetSubjectsUsecase(gh<_i569.ExamRepo>()),
-    );
     gh.factory<_i90.GetExamUsecase>(
       () => _i90.GetExamUsecase(gh<_i569.ExamRepo>()),
     );
     gh.factory<_i968.GetQuestionsUsecase>(
       () => _i968.GetQuestionsUsecase(gh<_i569.ExamRepo>()),
     );
+    gh.factory<_i418.GetSubjectsUsecase>(
+      () => _i418.GetSubjectsUsecase(gh<_i569.ExamRepo>()),
+    );
     gh.factory<_i745.ExamBloc>(
       () => _i745.ExamBloc(
         gh<_i418.GetSubjectsUsecase>(),
         gh<_i90.GetExamUsecase>(),
         gh<_i968.GetQuestionsUsecase>(),
+        gh<_i430.SearchSubjectsUseCase>(),
       ),
     );
     return this;

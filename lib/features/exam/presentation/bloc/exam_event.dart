@@ -26,4 +26,12 @@ class GetQuestionsEvent extends ExamEvent {
   List<Object?> get props => [examID];
 }
 
+class SearchSubjectsEvent extends ExamEvent {
+  final String keyword;
+  SearchSubjectsEvent(this.keyword);
+}
 
+class ChangeTabEvent extends ExamEvent{
+  final int selectedTabIndex;
+  ChangeTabEvent(this.selectedTabIndex);
+}
