@@ -15,7 +15,7 @@ class SubjectCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, AppRoutes.examBySubject,
-            arguments: subject.id);
+            arguments: subject);
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),

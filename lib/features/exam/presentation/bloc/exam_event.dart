@@ -11,11 +11,11 @@ class GetSubjectsEvent extends ExamEvent {
 }
 
 class GetExamsEvent extends ExamEvent {
-  final String subjectID;
-  const GetExamsEvent(this.subjectID);
+  final SubjectModel subjectModel;
+  const GetExamsEvent(this.subjectModel);
 
   @override
-  List<Object?> get props => [subjectID];
+  List<Object?> get props => [subjectModel.id];
 }
 
 class GetQuestionsEvent extends ExamEvent {

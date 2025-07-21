@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app_f/core/di/di.dart';
+import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/home_layout.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/exams_screen.dart';
 
 abstract class AppRoutes {
   static const String home = '/home';
   static const String examBySubject = '/examBySubject';
+  static const String StartExam = '/StartExam';
   static const String questions = '/questions';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,7 +21,18 @@ abstract class AppRoutes {
             child: const HomeLayout(),
           ),
         );
-        
+
+      case AppRoutes.examBySubject:
+        final subjectModel = settings.arguments as SubjectModel;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+            getIt<ExamBloc>()..add(GetExamsEvent(subjectModel)),
+            child: ExamsScreen(subject: subjectModel,),
+          ),
+        );
+
+
 
       default:
         return MaterialPageRoute(
