@@ -7,8 +7,8 @@ plugins {
 
 android {
     namespace = "com.example.online_exam_app_f"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35
+    ndkVersion = "34.0.0"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
