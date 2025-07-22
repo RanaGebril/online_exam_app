@@ -65,5 +65,5 @@ class _HomeLayout extends State<HomeLayout> {
     );
   }
 
-  List<Widget> tabs=[ExploreTab(),StartExamScreen()];
+  List<Widget> tabs=[ExploreTab()];
 }

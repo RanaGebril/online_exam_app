@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/usecases/get_exam_usecase.dart';
 import 'package:online_exam_app_f/features/exam/domain/usecases/get_questions_usecase.dart';
@@ -78,7 +79,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
     on<GetQuestionsEvent>((event, emit) async {
       emit(state.copyWith(questionsRequestState: RequestState.loading));
 
-      final questions = await getQuestionsUsecase(event.examID);
+      final questions = await getQuestionsUsecase(event.examModel.id);
 
       questions.fold(
         (failure) {

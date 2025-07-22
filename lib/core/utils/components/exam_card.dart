@@ -14,7 +14,11 @@ class ExamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
+        Navigator.pushNamed(context, AppRoutes.StartExam,
+        arguments:   {
+          'subject': subject,
+          'exam': exam,
+        },);
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 7, vertical: 3),

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app_f/core/di/di.dart';
+import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
+import 'package:online_exam_app_f/features/exam/domain/model/question_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/home_layout.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/exams_screen.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/questions_screen.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
 
 abstract class AppRoutes {
   static const String home = '/home';
@@ -32,6 +36,16 @@ abstract class AppRoutes {
           ),
         );
 
+      case AppRoutes.StartExam:
+        final args = settings.arguments as Map<String, dynamic>;
+        final subjectModel = args['subject'] as SubjectModel;
+        final examModel = args['exam'] as ExamModel;
+        return MaterialPageRoute(
+            builder: (_) =>  BlocProvider(
+              create: (context) =>
+              getIt<ExamBloc>(),
+              child: StartExamScreen(subject: subjectModel,exam: examModel,),
+            ),);
 
 
       default:

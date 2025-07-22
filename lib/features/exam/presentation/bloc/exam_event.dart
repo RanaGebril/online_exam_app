@@ -19,11 +19,11 @@ class GetExamsEvent extends ExamEvent {
 }
 
 class GetQuestionsEvent extends ExamEvent {
-  final String examID;
-  const GetQuestionsEvent(this.examID);
+  final ExamModel examModel;
+  const GetQuestionsEvent(this.examModel);
 
   @override
-  List<Object?> get props => [examID];
+  List<Object?> get props => [examModel.id];
 }
 
 class SearchSubjectsEvent extends ExamEvent {
