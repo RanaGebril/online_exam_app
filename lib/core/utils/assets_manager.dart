@@ -1,5 +1,10 @@
 const String svgPath="assets/svg_images";
 const String translationsPath="assets/translations";
+const String imagesPath="assets/images";
+
+abstract class ImagesAssets {
+   static const String alarm="$imagesPath/alarm.png";
+}
 
 abstract class SvgAssets {
    static const String colorPalette="$svgPath/Color Palette.svg";

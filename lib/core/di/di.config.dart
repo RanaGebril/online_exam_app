@@ -26,6 +26,8 @@ import '../../features/exam/domain/usecases/get_subjects_usecase.dart' as _i418;
 import '../../features/exam/domain/usecases/search_subjects_usecase.dart'
     as _i430;
 import '../../features/exam/presentation/bloc/exam_bloc.dart' as _i745;
+import '../../features/exam/presentation/bloc/questions/questions_bloc.dart'
+    as _i252;
 import '../network/token_interspector.dart' as _i215;
 import 'modules/dio_modules.dart' as _i288;
 
@@ -59,6 +61,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i418.GetSubjectsUsecase>(
       () => _i418.GetSubjectsUsecase(gh<_i569.ExamRepo>()),
+    );
+    gh.factory<_i252.QuestionBloc>(
+      () => _i252.QuestionBloc(gh<_i968.GetQuestionsUsecase>()),
     );
     gh.factory<_i745.ExamBloc>(
       () => _i745.ExamBloc(

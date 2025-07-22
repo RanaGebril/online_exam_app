@@ -5,10 +5,13 @@ import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/question_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
+import 'package:online_exam_app_f/features/exam/presentation/bloc/questions/questions_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/home_layout.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/exams_screen.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/questions_screen.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
+
+import '../../features/exam/presentation/bloc/questions/questions_event.dart';
 
 abstract class AppRoutes {
   static const String home = '/home';
@@ -47,6 +50,18 @@ abstract class AppRoutes {
               child: StartExamScreen(subject: subjectModel,exam: examModel,),
             ),);
 
+      case AppRoutes.questions:
+        final args = settings.arguments as Map<String, dynamic>;
+        final exam = args['exam'] as ExamModel;
+        final subject = args['subject'] as SubjectModel;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+            getIt<QuestionBloc>()..add(LoadQuestionsEvent(exam)),
+            child: QuestionsScreen(exam: exam, subject: subject),
+          ),
+        );
 
       default:
         return MaterialPageRoute(
