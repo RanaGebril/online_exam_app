@@ -37,6 +37,8 @@ dependencies:
   injectable:
   get_it:
   dartz:
+  percent_indicator:
+  dashed_circular_progress_bar:
 
 dev_dependencies:
   flutter_test:

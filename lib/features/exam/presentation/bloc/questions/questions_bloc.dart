@@ -14,6 +14,7 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     on<SelectAnswerEvent>(_onSelectAnswer);
     on<NextQuestionEvent>(_onNextQuestion);
     on<PreviousQuestionEvent>(_onPreviousQuestion);
+
   }
 
   Future<void> _onLoadQuestions(
@@ -54,4 +55,23 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
       emit(state.copyWith(currentIndex: state.currentIndex - 1));
     }
   }
+
+  int calculateCorrectAnswers(QuestionState state) {
+    int correct = 0;
+    for (var question in state.questions) {
+      final selectedIndex = state.selectedAnswers[question.id];
+      if (selectedIndex != null) {
+        final selectedAnswerKey = question.answers[selectedIndex].key;
+
+
+
+        if (selectedAnswerKey == question.correctAnswer) {
+          correct++;
+        }
+      }
+    }
+    return correct;
+  }
+
+
 }

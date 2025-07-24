@@ -7,6 +7,7 @@ import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import 'package:online_exam_app_f/core/utils/assets_manager.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
+import 'package:online_exam_app_f/features/exam/presentation/screens/view_score_screen.dart';
 import 'package:svg_flutter/svg.dart';
 import '../bloc/questions/questions_bloc.dart';
 import '../bloc/questions/questions_event.dart';
@@ -29,8 +30,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   @override
   void initState() {
     super.initState();
-    // remainingTime = Duration(minutes: widget.exam.duration);
-    remainingTime = Duration(seconds: 3);
+    remainingTime = Duration(minutes: widget.exam.duration);
+    // remainingTime = Duration(minutes: 1);
     startTimer();
     context.read<QuestionBloc>().add(LoadQuestionsEvent(widget.exam));
   }
@@ -251,9 +252,30 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () => context
-                                .read<QuestionBloc>()
-                                .add(NextQuestionEvent()),
+                            onPressed:() {
+
+                                if (state.currentIndex == state.questions.length - 1) {
+                                  final bloc = context.read<QuestionBloc>();
+                                  final correct = bloc.calculateCorrectAnswers(state);
+                                  final total = state.questions.length;
+                                  timer?.cancel();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ViewScoreScreen(
+                                        correctAnswers: correct,
+                                        totalQuestions: total,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  context.read<QuestionBloc>().add(NextQuestionEvent());
+                                  // print("Q: ${question.question}");
+                                  // print("Selected Key: ${question.answers[state.currentIndex].key}");
+                                  // print("Correct Key: ${question.correctAnswer}");
+                                };
+
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.blue,
                               shape: RoundedRectangleBorder(

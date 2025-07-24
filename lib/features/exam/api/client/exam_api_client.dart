@@ -6,7 +6,7 @@ import 'package:online_exam_app_f/features/exam/api/models/responses/exam_questi
 import 'package:online_exam_app_f/features/exam/api/models/responses/exams_by_subject_response.dart';
 import 'package:online_exam_app_f/features/exam/api/models/responses/subjects_response.dart';
 import 'package:retrofit/retrofit.dart';
-import '';
+
 part 'exam_api_client.g.dart';
 
 @injectable

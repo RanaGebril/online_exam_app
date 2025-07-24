@@ -49,5 +49,6 @@ class QuestionsDTO {
     id: Id ?? "",
     question: question ?? "",
     answers: answers?.map((answerDto) => answerDto.toAnswerModel()).toList() ?? [],
+    correctAnswer: correct??null
   );
 }
