@@ -196,10 +196,14 @@ class _AuthApiClient implements AuthApiClient {
   }
 
   @override
-  Future<void> editProfile(Map<String, dynamic> body) async {
+  Future<void> editProfile(
+    Map<String, dynamic> body,
+    String token,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body);
     final _options = _setStreamType<void>(Options(

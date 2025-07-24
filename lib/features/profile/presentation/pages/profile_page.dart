@@ -1,9 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
+import '../../../../config/di/di.dart';
 import '../../../../config/routes_manager/app_routes.dart';
 import '../../../../config/theme/app_colors.dart';
+import '../../../../core/di/di.dart';
+import '../../../auth/data/datasources.dart';
+import '../../../auth/data/models.dart';
+import '../../../auth/data/remote/auth_api_client.dart';
+import '../../../auth/data/repositories.dart';
 import '../../data/datasources/user_local_storage.dart';
 import '../../data/models/user_profile_model.dart';
+import '../../domain/usecases/update_profile_usecase.dart';
 import 'addphoto/image_picker_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,6 +27,30 @@ class _ProfilePageState extends State<ProfilePage> {
   late TextEditingController lastNameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
+  void _updateProfile() async {
+    final updateUseCase = sl<UpdateUserUseCase>();
+    try {
+      final updatedUser = await updateUseCase(
+        username: usernameController.text.trim(),
+        firstName: firstNameController.text.trim(),
+        lastName: lastNameController.text.trim(),
+        email: emailController.text.trim(),
+        phone: phoneController.text.trim(),
+      );
+
+      final profile = UserProfileModel.fromUserModel(updatedUser as UserModel);
+      await UserLocalStorage.saveUser(profile);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Profile updated successfully ✅")),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Update failed: $e")),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();

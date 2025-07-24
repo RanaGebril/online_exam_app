@@ -45,3 +45,10 @@ class UserProfileModel {
     };
   }
 }
+abstract class UpdateProfileEvent {}
+
+class UpdateProfilePressed extends UpdateProfileEvent {
+  final UserProfileModel updatedUser;
+
+  UpdateProfilePressed(this.updatedUser);
+}

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../config/routes_manager/app_routes.dart';
 import '../../../../../config/theme/app_colors.dart';
 import '../../../../../shared/HomeLayout.dart';
@@ -24,7 +23,7 @@ class LoginPage extends StatelessWidget {
       create: (context) {
         final dio = Dio();
         final apiClient = AuthApiClient(dio);
-        final datasource = AuthRemoteDatasource(apiClient);
+        final datasource = AuthRemoteDatasource(apiClient,dio);
         final repository = AuthRepositoryImpl(datasource);
         final useCase = LogicUserCase(repository);
         return LoginBloc(useCase);

@@ -18,4 +18,13 @@ abstract class AuthRepository {
     required String newPassword,
     required String reNewPassword,
   });
+  Future<void> editProfile({
+    required String username,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+  });
+
+
 }

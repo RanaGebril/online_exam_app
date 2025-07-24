@@ -27,5 +27,10 @@ abstract class AuthApiClient {
   Future<void> profileData(@Body() Map<String, dynamic> body);
 
   @POST("/auth/editProfile")
-  Future<void> editProfile(@Body() Map<String, dynamic> body);
+  Future<void> editProfile(
+      @Body() Map<String, dynamic> body,
+      @Header("Authorization") String token,
+      );
+
+
 }

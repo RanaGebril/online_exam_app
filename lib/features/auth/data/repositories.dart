@@ -53,5 +53,24 @@ class AuthRepositoryImpl implements AuthRepository {
         reNewPassword: reNewPassword
     );
   }
+  @override
+  Future<void> editProfile({
+    required String username,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+  }) {
+    return remote.updateUser(
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+    );
+  }
+
+
+
 
 }

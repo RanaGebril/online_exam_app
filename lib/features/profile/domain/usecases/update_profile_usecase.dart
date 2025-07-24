@@ -1,12 +1,23 @@
-import '../entities/user_profile_entity.dart';
-import '../repositories/profile_repository.dart';
+import '../../../auth/domain/repositories.dart';
 
-class UpdateProfileUseCase {
-  final ProfileRepository repository;
+class UpdateUserUseCase {
+  final AuthRepository repo;
 
-  UpdateProfileUseCase(this.repository);
+  UpdateUserUseCase(this.repo);
 
-  Future<void> call(UserProfileEntity user) {
-    return repository.updateProfile(user);
+  Future<void> call({
+    required String username,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+  }) async {
+    await repo.editProfile(
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+    );
   }
 }
