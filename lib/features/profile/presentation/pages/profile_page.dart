@@ -1,13 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../../../config/di/di.dart';
 import '../../../../config/routes_manager/app_routes.dart';
 import '../../../../config/theme/app_colors.dart';
-import '../../../../core/di/di.dart';
-import '../../../auth/data/datasources.dart';
 import '../../../auth/data/models.dart';
-import '../../../auth/data/remote/auth_api_client.dart';
-import '../../../auth/data/repositories.dart';
+
 import '../../data/datasources/user_local_storage.dart';
 import '../../data/models/user_profile_model.dart';
 import '../../domain/usecases/update_profile_usecase.dart';
@@ -50,7 +46,6 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
   }
-
   @override
   void initState() {
     super.initState();
@@ -99,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: InputDecoration(
                         labelText: "User name",
                         hintText: "${user?.username} ",
-                        hintStyle: TextStyle(color: AppColors.black),
+                        hintStyle: TextStyle(color: AppColors.black[100]),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: OutlineInputBorder(),
                       ),
@@ -115,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               decoration: InputDecoration(
                                 labelText: "First Name",
                                 hintText: "${user?.firstName}",
-                                hintStyle: TextStyle(color: AppColors.black),
+                                hintStyle: TextStyle(color: AppColors.black[100]),
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 border: OutlineInputBorder(),
                               ),
@@ -129,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             decoration: InputDecoration(
                               labelText: "Last name",
                               hintText: "${user?.lastName}",
-                              hintStyle: TextStyle(color: AppColors.black),
+                              hintStyle: TextStyle(color: AppColors.black[100]),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               border: OutlineInputBorder(),
                             ),
@@ -143,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: InputDecoration(
                         labelText: "Email",
                         hintText: " ${user?.email}",
-                        hintStyle: TextStyle(color: AppColors.black),
+                        hintStyle: TextStyle(color: AppColors.black[100]),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: OutlineInputBorder(),
                       ),
@@ -154,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: InputDecoration(
                         labelText: "Password",
                         hintText: "x x x x x x x ",
-                        hintStyle: TextStyle(color: AppColors.black),
+                        hintStyle: TextStyle(color: AppColors.black[100]),
                         suffix: GestureDetector(
                           onTap: (){
                             Navigator.pushNamed(context, AppRoutes.resetpassword);
@@ -174,7 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: InputDecoration(
                         labelText: "Phone number",
                         hintText: "${user?.phone}",
-                        hintStyle: TextStyle(color: AppColors.black),
+                        hintStyle: TextStyle(color: AppColors.black[100]),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         border: OutlineInputBorder(),
                       ),

@@ -25,7 +25,7 @@ class _ForgetPasswordFlowState extends State<ForgetPasswordFlow> {
 
   bool isEmailValid(String email) {
     final emailRegex = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[Z0-9.a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\$',
+      r'^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,}$',
     );
     return emailRegex.hasMatch(email);
   }
@@ -33,6 +33,11 @@ class _ForgetPasswordFlowState extends State<ForgetPasswordFlow> {
   void _validateEmail(String email) {
     setState(() {
       _isEmailValid = isEmailValid(email);
+      if (!_isEmailValid) {
+        print("Email validation failed for: $email");
+      } else {
+        print("Email is valid: $email");
+      }
     });
   }
 
