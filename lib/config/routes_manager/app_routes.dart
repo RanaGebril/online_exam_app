@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../features/auth/presentation/bloc/ForgotPassword/forget_password_flow.dart';
+import '../../features/auth/presentation/bloc/login/login_page.dart';
+import '../../features/auth/presentation/bloc/signup/sinup_page.dart';
+import '../../features/profile/presentation/pages/Resetpassword/reset_password.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app_f/core/di/di.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
@@ -26,30 +31,30 @@ abstract class AppRoutes {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case login:
-      //   return MaterialPageRoute(
-      //     builder: (_) => LoginPage(),
-      //   );
-      //
-      // case signup:
-      //   return MaterialPageRoute(
-      //     builder: (_) => SignupPage(),
-      //   );
-      //
-      // case forgetpass:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const ForgetPasswordFlow(),
-      //   );
-      //
-      // case profilePage:
-      //   return MaterialPageRoute(
-      //     builder: (_) => ProfilePage(),
-      //   );
-      //
-      // case resetpassword:
-      //   return MaterialPageRoute(
-      //     builder: (_) => ResetPassword(),
-      //   );
+      case login:
+        return MaterialPageRoute(
+          builder: (_) => LoginPage(),
+        );
+
+      case signup:
+        return MaterialPageRoute(
+          builder: (_) => SignupPage(),
+        );
+
+      case forgetpass:
+        return MaterialPageRoute(
+          builder: (_) => const ForgetPasswordFlow(),
+        );
+
+      case profilePage:
+        return MaterialPageRoute(
+          builder: (_) => ProfilePage(),
+        );
+
+      case resetpassword:
+        return MaterialPageRoute(
+          builder: (_) => ResetPassword(),
+        );
 
       case home:
         return MaterialPageRoute(

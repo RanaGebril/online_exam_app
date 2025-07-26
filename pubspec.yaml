@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: ^3.6.1
 
 dependencies:
   flutter:
@@ -39,6 +39,8 @@ dependencies:
   dartz:
   percent_indicator:
   dashed_circular_progress_bar:
+  hive_flutter: ^1.1.0
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
