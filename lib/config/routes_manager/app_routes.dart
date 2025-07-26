@@ -13,30 +13,63 @@ import 'package:online_exam_app_f/features/exam/presentation/screens/view_score_
 import '../../features/exam/presentation/bloc/questions/questions_event.dart';
 
 abstract class AppRoutes {
+  static const String login = '/login';
+  static const String signup = '/signup';
+  static const String forgetpass = '/forgetpass';
+  static const String profilePage = '/profile';
+  static const String resetpassword = '/resetpassword';
   static const String home = '/home';
   static const String examBySubject = '/examBySubject';
   static const String StartExam = '/StartExam';
   static const String questions = '/questions';
-  static const String viewScore="/viewScore";
+  static const String viewScore = "/viewScore";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      // case login:
+      //   return MaterialPageRoute(
+      //     builder: (_) => LoginPage(),
+      //   );
+      //
+      // case signup:
+      //   return MaterialPageRoute(
+      //     builder: (_) => SignupPage(),
+      //   );
+      //
+      // case forgetpass:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const ForgetPasswordFlow(),
+      //   );
+      //
+      // case profilePage:
+      //   return MaterialPageRoute(
+      //     builder: (_) => ProfilePage(),
+      //   );
+      //
+      // case resetpassword:
+      //   return MaterialPageRoute(
+      //     builder: (_) => ResetPassword(),
+      //   );
+
       case home:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<ExamBloc>(),
-            child: const HomeLayout(),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ExamBloc>(),
+                child: const HomeLayout(),
+              ),
         );
 
       case AppRoutes.examBySubject:
         final subjectModel = settings.arguments as SubjectModel;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-            getIt<ExamBloc>()..add(GetExamsEvent(subjectModel)),
-            child: ExamsScreen(subject: subjectModel,),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<ExamBloc>()..add(GetExamsEvent(subjectModel)),
+                child: ExamsScreen(subject: subjectModel),
+              ),
         );
 
       case AppRoutes.StartExam:
@@ -44,11 +77,12 @@ abstract class AppRoutes {
         final subjectModel = args['subject'] as SubjectModel;
         final examModel = args['exam'] as ExamModel;
         return MaterialPageRoute(
-            builder: (_) =>  BlocProvider(
-              create: (context) =>
-              getIt<ExamBloc>(),
-              child: StartExamScreen(subject: subjectModel,exam: examModel,),
-            ),);
+          builder:
+              (_) => BlocProvider(
+                create: (context) => getIt<ExamBloc>(),
+                child: StartExamScreen(subject: subjectModel, exam: examModel),
+              ),
+        );
 
       case AppRoutes.questions:
         final args = settings.arguments as Map<String, dynamic>;
@@ -56,11 +90,13 @@ abstract class AppRoutes {
         final subject = args['subject'] as SubjectModel;
 
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-            getIt<QuestionBloc>()..add(LoadQuestionsEvent(exam)),
-            child: QuestionsScreen(exam: exam, subject: subject),
-          ),
+          builder:
+              (_) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<QuestionBloc>()..add(LoadQuestionsEvent(exam)),
+                child: QuestionsScreen(exam: exam, subject: subject),
+              ),
         );
 
       case AppRoutes.viewScore:
@@ -69,17 +105,18 @@ abstract class AppRoutes {
         final totalQuestions = args['totalQuestions'] as int;
 
         return MaterialPageRoute(
-          builder: (_) => ViewScoreScreen(
-            correctAnswers: correctAnswers,
-            totalQuestions: totalQuestions,
-          ),
+          builder:
+              (_) => ViewScoreScreen(
+                correctAnswers: correctAnswers,
+                totalQuestions: totalQuestions,
+              ),
         );
 
       default:
         return MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: Center(child: Text('No route found')),
-          ),
+          builder:
+              (_) =>
+                  const Scaffold(body: Center(child: Text('No route found'))),
         );
     }
   }
