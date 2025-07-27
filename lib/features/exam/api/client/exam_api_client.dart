@@ -9,26 +9,28 @@ import 'package:retrofit/retrofit.dart';
 
 part 'exam_api_client.g.dart';
 
-@injectable
+
 @RestApi(baseUrl: ApiEndPionts.baseUrl)
 abstract class ExamApiClient {
   @factoryMethod
   factory ExamApiClient(Dio dio) = _ExamApiClient;
 
+
   @GET(ApiEndPionts.subjectsEndPoint)
-  Future<SubjectsResponse> getSubjects({
-    @Query(ApiParameters.numberOfPages) int page = 1,
-    @Query(ApiParameters.pageLimit) int limit = 10,
-  });
+  Future<SubjectsResponse> getSubjects(
+      @Header("token") String token
+        );
 
   @GET(ApiEndPionts.examsBySubjectEndPoint)
   Future<ExamsBySubjectsResponse> getExamsBySubject(
-    @Query(ApiParameters.subjectID) String subjectID, {
+    @Query(ApiParameters.subjectID) String subjectID,
+      @Header("Authorization") String token, {
     @Query(ApiParameters.numberOfPages) int page = 1,
     @Query(ApiParameters.pageLimit) int limit = 10,
   });
 
   @GET(ApiEndPionts.examQuestionsEndPoint)
   Future<ExamQuestionsResponse> getExamsQuestions(
+      @Header("Authorization") String token,
       @Query(ApiParameters.examID) String examID);
 }

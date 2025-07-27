@@ -7,6 +7,8 @@ import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_state.dar
 import 'package:online_exam_app_f/features/exam/presentation/screens/explore_tab.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
 
+import '../../../profile/presentation/pages/profile_page.dart';
+
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
 
@@ -65,5 +67,5 @@ class _HomeLayout extends State<HomeLayout> {
     );
   }
 
-  List<Widget> tabs=[ExploreTab()];
+  List<Widget> tabs=[ExploreTab(),ProfilePage(),ProfilePage()];
 }

@@ -16,6 +16,8 @@ import 'package:online_exam_app_f/features/exam/presentation/screens/questions_s
 import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/view_score_screen.dart';
 import '../../features/exam/presentation/bloc/questions/questions_event.dart';
+import '../../shared/HomeLayout.dart';
+import '../di/di.dart';
 
 abstract class AppRoutes {
   static const String login = '/login';
@@ -60,8 +62,8 @@ abstract class AppRoutes {
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
-                create: (context) => getIt<ExamBloc>(),
-                child: const HomeLayout(),
+                create: (context) => sl<ExamBloc>(),
+                child:  HomeLayout(),
               ),
         );
 
@@ -72,7 +74,7 @@ abstract class AppRoutes {
               (_) => BlocProvider(
                 create:
                     (context) =>
-                        getIt<ExamBloc>()..add(GetExamsEvent(subjectModel)),
+                        sl<ExamBloc>()..add(GetExamsEvent(subjectModel)),
                 child: ExamsScreen(subject: subjectModel),
               ),
         );
@@ -84,7 +86,7 @@ abstract class AppRoutes {
         return MaterialPageRoute(
           builder:
               (_) => BlocProvider(
-                create: (context) => getIt<ExamBloc>(),
+                create: (context) => sl<ExamBloc>(),
                 child: StartExamScreen(subject: subjectModel, exam: examModel),
               ),
         );
@@ -99,7 +101,7 @@ abstract class AppRoutes {
               (_) => BlocProvider(
                 create:
                     (context) =>
-                        getIt<QuestionBloc>()..add(LoadQuestionsEvent(exam)),
+                        sl<QuestionBloc>()..add(LoadQuestionsEvent(exam)),
                 child: QuestionsScreen(exam: exam, subject: subject),
               ),
         );

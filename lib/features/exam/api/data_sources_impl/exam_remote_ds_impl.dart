@@ -1,38 +1,36 @@
-import 'package:injectable/injectable.dart';
 import 'package:online_exam_app_f/features/exam/api/client/exam_api_client.dart';
-import 'package:online_exam_app_f/features/exam/api/models/responses/exam_questions_response.dart';
-import 'package:online_exam_app_f/features/exam/api/models/responses/exams_by_subject_response.dart';
-import 'package:online_exam_app_f/features/exam/api/models/responses/subjects_response.dart';
 import 'package:online_exam_app_f/features/exam/data/data_sources/exam_remote_ds.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/question_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
+import '../../../profile/data/datasources/user_local_storage.dart';
 
-@Injectable(as: ExamRemoteDs)
-class ExamRemoteDsImpl implements ExamRemoteDs{
-  ExamApiClient examApiClient;
+
+class ExamRemoteDsImpl implements ExamRemoteDs {
+  final ExamApiClient examApiClient;
 
   ExamRemoteDsImpl(this.examApiClient);
 
   @override
-  Future<List<SubjectModel>> getSubjects()async {
-    SubjectsResponse subjectsRes= await examApiClient.getSubjects();
-    List<SubjectModel> subjects=subjectsRes.subjects!.map((subjectDTO) => subjectDTO.toSubjectModel()).toList() ??[];
-    return subjects;
-  }
+  Future<List<SubjectModel>> getSubjects() async {
+    final token = UserLocalStorage.getToken() ?? "";
+    print("🟢 Token used in request: Bearer $token");
 
-  Future<List<ExamModel>> getExamsBySubject(String subject_id)async{
-    ExamsBySubjectsResponse examsRes=await examApiClient.getExamsBySubject(subject_id);
-    List<ExamModel> exams=examsRes.exams?.map((examDTO) => examDTO.toExamModel()).toList()??[];
-    return exams;
+    final subjectsRes = await examApiClient.getSubjects(token);
+    return subjectsRes.subjects?.map((subjectDTO) => subjectDTO.toSubjectModel()).toList() ?? [];
   }
 
   @override
-  Future<List<QuestionModel>> getExamQuestions(String exam_id) async {
-    ExamQuestionsResponse questionRes = await examApiClient.getExamsQuestions(exam_id);
-    List<QuestionModel> questions = questionRes.questions?.map((questionDTO) => questionDTO.toQuestionModel()).toList() ?? [];
-    return questions;
+  Future<List<ExamModel>> getExamsBySubject(String subjectId) async {
+    final token = UserLocalStorage.getToken() ?? "";
+    final examsRes = await examApiClient.getExamsBySubject(subjectId, token);
+    return examsRes.exams?.map((examDTO) => examDTO.toExamModel()).toList() ?? [];
   }
-  
-  
+
+  @override
+  Future<List<QuestionModel>> getExamQuestions(String examId) async {
+    final token = UserLocalStorage.getUser()?.token ?? "";
+    final questionRes = await examApiClient.getExamsQuestions(token, examId);
+    return questionRes.questions?.map((questionDTO) => questionDTO.toQuestionModel()).toList() ?? [];
+  }
 }

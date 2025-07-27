@@ -4,7 +4,7 @@ import 'package:online_exam_app_f/features/exam/domain/repos/exam_repo.dart';
 import 'package:online_exam_app_f/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 
-@injectable
+
 class GetExamUsecase {
   ExamRepo examRepo;
   GetExamUsecase(this.examRepo);

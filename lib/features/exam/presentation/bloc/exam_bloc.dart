@@ -12,7 +12,7 @@ import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_state.dar
 
 part 'exam_event.dart';
 
-@injectable
+
 class ExamBloc extends Bloc<ExamEvent, ExamState> {
   GetSubjectsUsecase getSubjectsUsecase;
   GetExamUsecase getExamUsecase;
@@ -32,6 +32,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
 
       subjects.fold(
         (failure) {
+          print('Failed  ${failure.message}');
           emit(
             state.copyWith(
               subjectsRequestState: RequestState.error,
@@ -40,6 +41,7 @@ class ExamBloc extends Bloc<ExamEvent, ExamState> {
           );
         },
         (subjects) {
+          print('Fetched subjects: $subjects');
           emit(
             state.copyWith(
               subjectsRequestState: RequestState.success,

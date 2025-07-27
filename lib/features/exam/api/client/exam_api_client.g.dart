@@ -20,13 +20,11 @@ class _ExamApiClient implements ExamApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SubjectsResponse> getSubjects({int page = 1, int limit = 10}) async {
+  Future<SubjectsResponse> getSubjects(String token) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'numberOfPages': page,
-      r'limit': limit,
-    };
-    final _headers = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'token': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<SubjectsResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
@@ -51,7 +49,8 @@ class _ExamApiClient implements ExamApiClient {
 
   @override
   Future<ExamsBySubjectsResponse> getExamsBySubject(
-    String subjectID, {
+    String subjectID,
+    String token, {
     int page = 1,
     int limit = 10,
   }) async {
@@ -61,7 +60,8 @@ class _ExamApiClient implements ExamApiClient {
       r'numberOfPages': page,
       r'limit': limit,
     };
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ExamsBySubjectsResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
@@ -85,10 +85,14 @@ class _ExamApiClient implements ExamApiClient {
   }
 
   @override
-  Future<ExamQuestionsResponse> getExamsQuestions(String examID) async {
+  Future<ExamQuestionsResponse> getExamsQuestions(
+    String token,
+    String examID,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'exam': examID};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ExamQuestionsResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)

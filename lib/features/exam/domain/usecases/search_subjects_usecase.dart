@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 
-@injectable
+
 class SearchSubjectsUseCase {
   List<SubjectModel> call(String keyword, List<SubjectModel> allSubjects) {
     final lowerKeyword = keyword.trim().toLowerCase();

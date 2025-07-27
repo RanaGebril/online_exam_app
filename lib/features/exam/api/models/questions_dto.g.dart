@@ -7,24 +7,21 @@ part of 'questions_dto.dart';
 // **************************************************************************
 
 QuestionsDTO _$QuestionsDTOFromJson(Map<String, dynamic> json) => QuestionsDTO(
-  Id: json['_id'] as String?,
-  question: json['question'] as String?,
-  answers:
-      (json['answers'] as List<dynamic>?)
+      Id: json['_id'] as String?,
+      question: json['question'] as String?,
+      answers: (json['answers'] as List<dynamic>?)
           ?.map((e) => AnswersDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
-  type: json['type'] as String?,
-  correct: json['correct'] as String?,
-  subject:
-      json['subject'] == null
+      type: json['type'] as String?,
+      correct: json['correct'] as String?,
+      subject: json['subject'] == null
           ? null
           : SubjectDTO.fromJson(json['subject'] as Map<String, dynamic>),
-  exam:
-      json['exam'] == null
+      exam: json['exam'] == null
           ? null
           : ExamDTO.fromJson(json['exam'] as Map<String, dynamic>),
-  createdAt: json['createdAt'] as String?,
-);
+      createdAt: json['createdAt'] as String?,
+    );
 
 Map<String, dynamic> _$QuestionsDTOToJson(QuestionsDTO instance) =>
     <String, dynamic>{

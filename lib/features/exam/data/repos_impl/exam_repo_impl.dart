@@ -8,7 +8,7 @@ import 'package:online_exam_app_f/features/exam/domain/repos/exam_repo.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/question_model.dart';
 import 'package:dartz/dartz.dart';
 
-@Injectable(as: ExamRepo)
+
 class ExamRepoImpl implements ExamRepo{
   ExamRemoteDs examRemoteDs;
   ExamRepoImpl(this.examRemoteDs);
@@ -19,7 +19,8 @@ class ExamRepoImpl implements ExamRepo{
       return right(await examRemoteDs.getSubjects());
     }
     catch (e) {
-      return left(ServerFailure("Error loading subjects"));
+      print(e);
+      return left(ServerFailure(e.toString()));
     }
 
   }
