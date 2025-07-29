@@ -18,6 +18,7 @@ import 'package:online_exam_app_f/features/profile/domain/usecases/update_profil
 
 import '../../features/exam/api/data_sources_impl/exam_remote_ds_impl.dart';
 import '../../features/exam/data/repos_impl/exam_repo_impl.dart';
+import '../../features/exam/presentation/bloc/questions/questions_bloc.dart';
 
 final sl = GetIt.instance; // sl = service locator
 
@@ -104,4 +105,8 @@ void setupLocator() {
       sl<SearchSubjectsUseCase>(),
     ),
   );
+
+  // Question Bloc
+  sl.registerFactory<QuestionBloc>(() => QuestionBloc(
+    sl<GetQuestionsUsecase>()));
 }

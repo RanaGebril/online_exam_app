@@ -24,13 +24,10 @@ abstract class ExamApiClient {
   @GET(ApiEndPionts.examsBySubjectEndPoint)
   Future<ExamsBySubjectsResponse> getExamsBySubject(
     @Query(ApiParameters.subjectID) String subjectID,
-      @Header("Authorization") String token, {
-    @Query(ApiParameters.numberOfPages) int page = 1,
-    @Query(ApiParameters.pageLimit) int limit = 10,
-  });
+      @Header("token") String token);
 
   @GET(ApiEndPionts.examQuestionsEndPoint)
   Future<ExamQuestionsResponse> getExamsQuestions(
-      @Header("Authorization") String token,
+      @Header("token") String token,
       @Query(ApiParameters.examID) String examID);
 }

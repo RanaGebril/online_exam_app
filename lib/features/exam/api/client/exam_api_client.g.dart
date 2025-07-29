@@ -50,17 +50,11 @@ class _ExamApiClient implements ExamApiClient {
   @override
   Future<ExamsBySubjectsResponse> getExamsBySubject(
     String subjectID,
-    String token, {
-    int page = 1,
-    int limit = 10,
-  }) async {
+    String token,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'subject': subjectID,
-      r'numberOfPages': page,
-      r'limit': limit,
-    };
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final queryParameters = <String, dynamic>{r'subject': subjectID};
+    final _headers = <String, dynamic>{r'token': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ExamsBySubjectsResponse>(
@@ -91,7 +85,7 @@ class _ExamApiClient implements ExamApiClient {
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'exam': examID};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{r'token': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ExamQuestionsResponse>(
