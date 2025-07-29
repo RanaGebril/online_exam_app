@@ -18,16 +18,16 @@ abstract class ExamApiClient {
 
   @GET(ApiEndPionts.subjectsEndPoint)
   Future<SubjectsResponse> getSubjects(
-      @Header("token") String token
+      @Header(ApiParameters.token) String token
         );
 
   @GET(ApiEndPionts.examsBySubjectEndPoint)
   Future<ExamsBySubjectsResponse> getExamsBySubject(
     @Query(ApiParameters.subjectID) String subjectID,
-      @Header("token") String token);
+      @Header(ApiParameters.token) String token);
 
   @GET(ApiEndPionts.examQuestionsEndPoint)
   Future<ExamQuestionsResponse> getExamsQuestions(
-      @Header("token") String token,
+      @Header(ApiParameters.token) String token,
       @Query(ApiParameters.examID) String examID);
 }

@@ -5,6 +5,7 @@ import 'package:online_exam_app_f/config/theme/app_colors.dart';
 import 'package:online_exam_app_f/config/theme/font_style_manager.dart';
 import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import 'package:online_exam_app_f/core/utils/assets_manager.dart';
+import 'package:online_exam_app_f/core/utils/constants/constants.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/exam_model.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/view_score_screen.dart';
@@ -51,42 +52,42 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           builder: (BuildContext context) {
             return AlertDialog(
               backgroundColor: AppColors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),
-
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-
-              content:
-                 Padding(padding: EdgeInsets.symmetric(horizontal:10,vertical: 20 ),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     SvgPicture.asset(SvgAssets.sandClock,
-                       width: 45,
-                       height: 85,),
-                     Text("Time out !!",
-                       style: getRegularStyle(color: AppColors.red,fontSize: FontSize.s24),)
-                   ],
-                 ),),
-
+              content: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      SvgAssets.sandClock,
+                      width: 45,
+                      height: 85,
+                    ),
+                    Text(
+                      Constants.timeOut,
+                      style: getRegularStyle(
+                          color: AppColors.red, fontSize: FontSize.s24),
+                    )
+                  ],
+                ),
+              ),
               actions: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.blue,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
-                        )
-
-                    ),
-                    onPressed: () {
-
-                    },
-                    child:
-                        Center(child: Text("View score",
-                          style: getMediumStyle(color: AppColors.white,
-                              fontSize: FontSize.s20),
-                        ),)
-                    )
-
+                        )),
+                    onPressed: () {},
+                    child: Center(
+                      child: Text(
+                        Constants.viewScore,
+                        style: getMediumStyle(
+                            color: AppColors.white, fontSize: FontSize.s20),
+                      ),
+                    ))
               ],
             );
           },
@@ -94,7 +95,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       }
     });
   }
-
 
   @override
   void dispose() {
@@ -113,7 +113,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Exam"),
+            title: const Text(Constants.exam),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(5),
@@ -142,9 +142,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   child: CircularProgressIndicator(color: AppColors.blue),
                 );
               } else if (state.status == QuestionStatus.error) {
-                return Center(child: Text("Error: ${state.errorMessage}"));
+                return Center(
+                    child: Text("${Constants.error}: ${state.errorMessage}"));
               } else if (state.questions.isEmpty) {
-                return const Center(child: Text("No questions available."));
+                return const Center(child: Text(Constants.noQuestions));
               }
 
               final question = state.questions[state.currentIndex];
@@ -158,7 +159,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "Question ${state.currentIndex + 1} of ${state.questions.length}",
+                        "${Constants.question} ${state.currentIndex + 1} of ${state.questions.length}",
                         style: getMediumStyle(
                           color: AppColors.gray,
                           fontSize: FontSize.s14,
@@ -183,11 +184,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       return GestureDetector(
                         onTap: () {
                           context.read<QuestionBloc>().add(
-                            SelectAnswerEvent(
-                              questionId: question.id,
-                              selectedIndex: index,
-                            ),
-                          );
+                                SelectAnswerEvent(
+                                  questionId: question.id,
+                                  selectedIndex: index,
+                                ),
+                              );
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 6),
@@ -211,8 +212,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 child: Text(
                                   question.answers[index].answer,
                                   style: getRegularStyle(
-                                    color:
-                                    AppColors.blue[90] ?? AppColors.blue,
+                                    color: AppColors.blue[90] ?? AppColors.blue,
                                     fontSize: FontSize.s14,
                                   ),
                                 ),
@@ -241,7 +241,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                               ),
                             ),
                             child: Text(
-                              "Back",
+                              Constants.back,
                               style: getMediumStyle(
                                 color: AppColors.blue,
                                 fontSize: FontSize.s16,
@@ -252,29 +252,29 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed:() {
-
-                                if (state.currentIndex == state.questions.length - 1) {
-                                  final bloc = context.read<QuestionBloc>();
-                                  final correct = bloc.calculateCorrectAnswers(state);
-                                  final total = state.questions.length;
-                                  timer?.cancel();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => ViewScoreScreen(
-                                        correctAnswers: correct,
-                                        totalQuestions: total,
-                                      ),
+                            onPressed: () {
+                              if (state.currentIndex ==
+                                  state.questions.length - 1) {
+                                final bloc = context.read<QuestionBloc>();
+                                final correct =
+                                    bloc.calculateCorrectAnswers(state);
+                                final total = state.questions.length;
+                                timer?.cancel();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ViewScoreScreen(
+                                      correctAnswers: correct,
+                                      totalQuestions: total,
                                     ),
-                                  );
-                                } else {
-                                  context.read<QuestionBloc>().add(NextQuestionEvent());
-                                  // print("Q: ${question.question}");
-                                  // print("Selected Key: ${question.answers[state.currentIndex].key}");
-                                  // print("Correct Key: ${question.correctAnswer}");
-                                };
-
+                                  ),
+                                );
+                              } else {
+                                context
+                                    .read<QuestionBloc>()
+                                    .add(NextQuestionEvent());
+                              }
+                              ;
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.blue,
@@ -284,8 +284,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             ),
                             child: Text(
                               state.currentIndex == state.questions.length - 1
-                                  ? "Finish"
-                                  : "Next",
+                                  ? Constants.finish
+                                  : Constants.next,
                               style: getMediumStyle(
                                 color: AppColors.white,
                                 fontSize: FontSize.s16,

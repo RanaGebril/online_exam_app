@@ -4,6 +4,7 @@ import 'package:online_exam_app_f/config/theme/app_colors.dart';
 import 'package:online_exam_app_f/config/theme/font_style_manager.dart';
 import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import 'package:online_exam_app_f/core/utils/components/subject_card.dart';
+import 'package:online_exam_app_f/core/utils/constants/constants.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_state.dart';
 
@@ -24,7 +25,7 @@ class ExploreTab extends StatelessWidget {
               context.read<ExamBloc>().add(SearchSubjectsEvent(value));
             },
             decoration: InputDecoration(
-              hintText: "Search...",
+              hintText: Constants.search,
               hintStyle: getMediumStyle(
                 color: AppColors.gray,
                 fontSize: FontSize.s14,
@@ -53,7 +54,7 @@ class ExploreTab extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8),
           child: Text(
-            "Browse by subject",
+            Constants.browseSubjects,
             style: getMediumStyle(
               color: AppColors.black[100] ?? Colors.grey,
               fontSize: 18,
@@ -86,7 +87,7 @@ class ExploreTab extends StatelessWidget {
                   },
                 );
               } else {
-                return Center(child: Text("No subjects"));
+                return Center(child: Text(Constants.noSubjects));
               }
             },
           ),

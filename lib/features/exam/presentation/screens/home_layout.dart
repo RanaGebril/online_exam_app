@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app_f/config/theme/app_colors.dart';
 import 'package:online_exam_app_f/core/utils/components/nav_bar_icon.dart';
+import 'package:online_exam_app_f/core/utils/constants/constants.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_state.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/explore_tab.dart';
@@ -29,10 +30,10 @@ class _HomeLayout extends State<HomeLayout> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Survey", style: TextStyle(color: AppColors.blue)),
+            title:
+                Text(Constants.survey, style: TextStyle(color: AppColors.blue)),
           ),
           body: tabs[state.currentTabIndex],
-
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.currentTabIndex,
             onTap: (index) {
@@ -44,21 +45,21 @@ class _HomeLayout extends State<HomeLayout> {
                   isSelrcted: state.currentTabIndex == 0,
                   tabIcon: Icons.home_outlined,
                 ),
-                label: "Explore",
+                label: Constants.explore,
               ),
               BottomNavigationBarItem(
                 icon: NavBarIcon(
                   isSelrcted: state.currentTabIndex == 1,
                   tabIcon: Icons.assignment,
                 ),
-                label: "Result",
+                label: Constants.results,
               ),
               BottomNavigationBarItem(
                 icon: NavBarIcon(
                   isSelrcted: state.currentTabIndex == 2,
                   tabIcon: Icons.person_outline,
                 ),
-                label: "Profile",
+                label: Constants.profile,
               ),
             ],
           ),
@@ -67,5 +68,5 @@ class _HomeLayout extends State<HomeLayout> {
     );
   }
 
-  List<Widget> tabs=[ExploreTab(),ProfilePage(),ProfilePage()];
+  List<Widget> tabs = [ExploreTab(), ProfilePage(), ProfilePage()];
 }
