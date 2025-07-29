@@ -16,7 +16,6 @@ import 'package:online_exam_app_f/features/exam/presentation/screens/questions_s
 import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/view_score_screen.dart';
 import '../../features/exam/presentation/bloc/questions/questions_event.dart';
-import '../../shared/HomeLayout.dart';
 import '../di/di.dart';
 
 abstract class AppRoutes {

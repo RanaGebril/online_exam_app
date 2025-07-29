@@ -5,7 +5,6 @@ import 'package:online_exam_app_f/config/theme/font_style_manager.dart';
 import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import '../../../../../config/routes_manager/app_routes.dart';
 import '../../../../../config/theme/app_colors.dart';
-import '../../../../../shared/HomeLayout.dart';
 import '../../../../exam/presentation/screens/home_layout.dart';
 import '../../../data/datasources.dart';
 import '../../../data/remote/auth_api_client.dart';
