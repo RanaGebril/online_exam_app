@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/di/di.dart';
 import '../../../../config/routes_manager/app_routes.dart';
 import '../../../../config/theme/app_colors.dart';
+import '../../../../core/di/di.dart';
 import '../../../auth/data/models.dart';
 
 import '../../data/datasources/user_local_storage.dart';
@@ -60,6 +61,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = UserLocalStorage.getUser();
+
+
     void _updateProfile() async {
       final updatedUser = UserProfileModel(
         username: usernameController.text.trim(),

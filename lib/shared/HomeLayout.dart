@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../features/exam/presentation/screens/explore_tab.dart';
 import '../features/profile/presentation/pages/explore_page.dart';
 import '../features/profile/presentation/pages/profile_page.dart';
 import '../features/profile/presentation/pages/result_page.dart';
@@ -22,7 +23,7 @@ class _MainLayoutState extends State<MainLayout> {
   }
 
   final List<Widget> _screens = [
-    ExplorePage(),
+    ExploreTab(),
     ResultPage(),
     ProfilePage(),
   ];
