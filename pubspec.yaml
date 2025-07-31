@@ -51,6 +51,7 @@ dev_dependencies:
   build_runner:
   json_serializable:
   injectable_generator:
+  hive_generator:
 
 flutter:
 

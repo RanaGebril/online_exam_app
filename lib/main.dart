@@ -12,11 +12,16 @@ import 'package:online_exam_app_f/features/auth/presentation/bloc/ForgotPassword
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
 import 'package:online_exam_app_f/features/profile/data/datasources/user_local_storage.dart';
 
+import 'features/results/domain/models/completed_exam.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('userBox');
+  Hive.registerAdapter(CompletedExamAdapter()); // لازم يكون بعد توليد الملف
+  // await Hive.deleteBoxFromDisk('completed_exams');
+  await Hive.openBox<CompletedExam>('completed_exams');
   setupLocator();
   runApp(
     EasyLocalization(
