@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam_app_f/features/results/presentation/screens/completed_exams_screen.dart';
 import '../../features/auth/presentation/bloc/ForgotPassword/forget_password_flow.dart';
 import '../../features/auth/presentation/bloc/login/login_page.dart';
 import '../../features/auth/presentation/bloc/signup/sinup_page.dart';
@@ -16,6 +17,8 @@ import 'package:online_exam_app_f/features/exam/presentation/screens/questions_s
 import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/view_score_screen.dart';
 import '../../features/exam/presentation/bloc/questions/questions_event.dart';
+import '../../features/results/domain/models/completed_exam.dart';
+import '../../features/results/presentation/screens/review_screen.dart';
 import '../../shared/HomeLayout.dart';
 import '../di/di.dart';
 
@@ -30,6 +33,8 @@ abstract class AppRoutes {
   static const String StartExam = '/StartExam';
   static const String questions = '/questions';
   static const String viewScore = "/viewScore";
+  static const String result = "/result";
+  static const String review='/review_exam';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -101,7 +106,7 @@ abstract class AppRoutes {
               (_) => BlocProvider(
                 create:
                     (context) =>
-                        sl<QuestionBloc>()..add(LoadQuestionsEvent(exam)),
+                        sl<QuestionBloc>()..add(LoadQuestionsEvent(exam:exam)),
                 child: QuestionsScreen(exam: exam, subject: subject),
               ),
         );
@@ -119,6 +124,12 @@ abstract class AppRoutes {
               ),
         );
 
+      case AppRoutes.result:
+        return MaterialPageRoute(builder: (_) => CompletedExamsScreen());
+
+      case AppRoutes.review :
+        final completedExam = settings.arguments as CompletedExam;
+        return MaterialPageRoute(builder: (_) => ReviewExamScreen(completedExam: completedExam));
       default:
         return MaterialPageRoute(
           builder:
