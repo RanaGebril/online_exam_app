@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam_app_f/config/di/di.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/questions/questions_event.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/questions/questions_state.dart';
+import 'package:online_exam_app_f/features/results/domain/models/completed_exam.dart';
+import 'package:online_exam_app_f/features/results/presentation/bloc/result_bloc.dart';
+import 'package:online_exam_app_f/features/results/presentation/bloc/result_event.dart';
 
 import '../../../domain/usecases/get_questions_usecase.dart';
 
@@ -14,6 +18,7 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     on<SelectAnswerEvent>(_onSelectAnswer);
     on<NextQuestionEvent>(_onNextQuestion);
     on<PreviousQuestionEvent>(_onPreviousQuestion);
+    on<FinishExamEvent>(_onFinishExam);
 
   }
 
@@ -73,5 +78,21 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     return correct;
   }
 
+  Future<void> _onFinishExam(FinishExamEvent event, Emitter<QuestionState> emit) async {
+    final correctAnswers = calculateCorrectAnswers(state);
+    final totalQuestions = state.questions.length;
+    final completedExam = CompletedExam(
+      examId: event.exam.id, // افتراض أن السؤال الأول يحتوي على examId
+      completionDate: DateTime.now(),
+      correctAnswers: correctAnswers,
+      totalQuestions: totalQuestions,
+      selectedAnswers: Map.from(state.selectedAnswers),
+      subjectName: event.subject.name,
+      subjectImage: event.subject.imageUrl, questionsNum: event.exam.questionsNum??20,
+      duration: event.exam.duration??30
+    );
+    sl<ResultBloc>().add(SaveResultEvent(completedExam));
+    emit(state.copyWith(correctAnswers: correctAnswers, totalQuestions: totalQuestions));
+  }
 
 }
