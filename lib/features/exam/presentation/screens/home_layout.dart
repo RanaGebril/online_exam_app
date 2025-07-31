@@ -6,8 +6,7 @@ import 'package:online_exam_app_f/core/utils/constants/constants.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_state.dart';
 import 'package:online_exam_app_f/features/exam/presentation/screens/explore_tab.dart';
-import 'package:online_exam_app_f/features/exam/presentation/screens/start_exam_screen.dart';
-
+import 'package:online_exam_app_f/features/results/presentation/screens/completed_exams_screen.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -29,10 +28,6 @@ class _HomeLayout extends State<HomeLayout> {
     return BlocBuilder<ExamBloc, ExamState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title:
-                Text(Constants.survey, style: TextStyle(color: AppColors.blue)),
-          ),
           body: tabs[state.currentTabIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.currentTabIndex,
@@ -68,5 +63,5 @@ class _HomeLayout extends State<HomeLayout> {
     );
   }
 
-  List<Widget> tabs = [ExploreTab(), ProfilePage(), ProfilePage()];
+  List<Widget> tabs = [ExploreTab(),CompletedExamsScreen(), ProfilePage()];
 }

@@ -56,7 +56,7 @@ class StartExamScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      exam.title,
+                      exam.title??"",
                       style: getMediumStyle(
                           color: AppColors.black, fontSize: FontSize.s18),
                     ),
