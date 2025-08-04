@@ -31,7 +31,7 @@ class CompletedExamsScreen extends StatelessWidget {
             if (state.status == ResultStatus.error) {
               return Center(
                 child: Text(
-                  state.errorMessage ?? 'Error loading exams',
+                  state.errorMessage ?? Constants.errorLoadExams,
                   style: getRegularStyle(
                       color: AppColors.red, fontSize: FontSize.s16),
                 ),
@@ -40,14 +40,14 @@ class CompletedExamsScreen extends StatelessWidget {
             if (state.completedExams.isEmpty) {
               return Center(
                 child: Text(
-                  'No completed exams yet',
+                  Constants.noCompleted,
                   style: getRegularStyle(
                       color: AppColors.gray, fontSize: FontSize.s16),
                 ),
               );
             }
 
-            // تجميع الامتحانات حسب subjectName
+
             final examsBySubject = groupBy(state.completedExams,
                 (completedExam) => completedExam.subjectName);
 

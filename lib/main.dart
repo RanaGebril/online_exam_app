@@ -19,8 +19,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('userBox');
-  Hive.registerAdapter(CompletedExamAdapter()); // لازم يكون بعد توليد الملف
-  // await Hive.deleteBoxFromDisk('completed_exams');
+  Hive.registerAdapter(CompletedExamAdapter());
   await Hive.openBox<CompletedExam>('completed_exams');
   setupLocator();
   runApp(

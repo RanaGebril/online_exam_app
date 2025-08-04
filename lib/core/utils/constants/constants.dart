@@ -28,7 +28,10 @@ abstract class Constants {
   static const String startAgain="Start again";
   static const String survey="Survey";
   static const String explore="Explore";
-  static const String results="Result";
+  static const String results="Results";
   static const String profile="Profile";
-
+  static const String answers='Answers';
+  static const String errorLoadQuestions="Error Loading Questions";
+  static const String errorLoadExams="Error Loading Exams";
+  static const String noCompleted='No completed exams yet';
 }

@@ -4,6 +4,7 @@ import 'package:online_exam_app_f/config/di/di.dart';
 import 'package:online_exam_app_f/config/theme/app_colors.dart';
 import 'package:online_exam_app_f/config/theme/font_style_manager.dart';
 import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
+import 'package:online_exam_app_f/core/utils/constants/constants.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/questions/questions_bloc.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/questions/questions_event.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/questions/questions_state.dart';
@@ -23,7 +24,7 @@ class ReviewExamScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Answers'
+            Constants.answers
           ),elevation: 0,
         ),
         body: BlocBuilder<QuestionBloc, QuestionState>(
@@ -36,7 +37,7 @@ class ReviewExamScreen extends StatelessWidget {
             if (state.status == QuestionStatus.error) {
               return Center(
                 child: Text(
-                  state.errorMessage ?? 'Error loading questions',
+                  state.errorMessage ?? Constants.errorLoadQuestions,
                   style: getRegularStyle(color: AppColors.red, fontSize: FontSize.s16),
                 ),
               );
@@ -44,7 +45,7 @@ class ReviewExamScreen extends StatelessWidget {
             if (state.questions.isEmpty) {
               return Center(
                 child: Text(
-                  'No questions available',
+                  Constants.noQuestions,
                   style: getRegularStyle(color: AppColors.gray, fontSize: FontSize.s16),
                 ),
               );
@@ -97,15 +98,18 @@ class ReviewExamScreen extends StatelessWidget {
                                 final isSelected = selectedIndex == answerIndex;
                                 final isCorrectAnswer = answer.key == question.correctAnswer;
 
-                                // تحديد لون الـ Container بناءً على الحالة
-                                Color containerColor = AppColors.lightBlue; // الافتراضي
+                                Color containerColor = AppColors.lightBlue;
                                 if (isSelected) {
                                   containerColor = isCorrect ? AppColors.lightGreen : AppColors.lightRed;
                                 } else if (isCorrectAnswer) {
                                   containerColor = AppColors.lightGreen;
                                 }
 
-                                // تحديد لون الأيقونة بناءً على الحالة
+                                Color containerBorderColor = AppColors.lightBlue;
+                                if (isSelected) {
+                                  containerColor = isCorrect ? AppColors.green : AppColors.red;
+                                }
+
                                 Color iconColor = AppColors.blue;
                                 if (isSelected) {
                                   iconColor = isCorrect ? AppColors.green : AppColors.red;
@@ -118,7 +122,8 @@ class ReviewExamScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: containerColor,
+                                    color: containerBorderColor,
+
                                   ),
                                   child: Row(
                                     children: [
