@@ -9,14 +9,15 @@ import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LogicUserCase loginUseCase;
+  final SaveUserUseCase saveUserUseCase;
 
-  LoginBloc(this.loginUseCase) : super(LoginInitial()) {
+  LoginBloc(this.loginUseCase,this.saveUserUseCase) : super(LoginInitial()) {
     on<LoginButtonPressed>((event, emit) async {
       emit(LoginLoading());
       try {
         final user = await loginUseCase(event.email, event.password);
         final profile = UserProfileModel.fromUserModel(user as UserModel);
-        await UserLocalStorage.saveUser(profile);
+        await saveUserUseCase(profile);
         emit(LoginSuccess());
       } catch (e) {
         emit(LoginFailure(e.toString()));

@@ -23,4 +23,10 @@ class UserLocalStorage {
   static bool isLoggedIn() {
     return _box.containsKey('userData');
   }
+
+}
+class SaveUserUseCase {
+  Future<void> call(UserProfileModel user) async {
+    await UserLocalStorage.saveUser(user);
+  }
 }
