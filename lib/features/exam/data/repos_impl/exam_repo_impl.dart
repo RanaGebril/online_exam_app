@@ -12,12 +12,13 @@ import 'package:online_exam_app_f/features/profile/data/datasources/user_local_s
 
 class ExamRepoImpl implements ExamRepo{
   ExamRemoteDs examRemoteDs;
-  ExamRepoImpl(this.examRemoteDs);
+  final UserLocalStorage userLocalStorage;
+  ExamRepoImpl(this.examRemoteDs,this.userLocalStorage);
 
   @override
   Future<Either<Failure, List<SubjectModel>>> getSubjects() async{
     try {
-      final token = UserLocalStorage.getToken() ?? "";
+      final token = userLocalStorage.getToken() ?? "";
       if(token == null){print("no user found");}
       return right(await examRemoteDs.getSubjects(token));
     }
@@ -31,7 +32,7 @@ class ExamRepoImpl implements ExamRepo{
   @override
   Future<Either<Failure, List<ExamModel>>> getExamsBySubject(String subject_id) async{
     try{
-      final token = UserLocalStorage.getToken() ?? "";
+      final token = userLocalStorage.getToken() ?? "";
       if(token == null){print("no user found");}
       return right(await examRemoteDs.getExamsBySubject(subject_id,token));
     }
@@ -44,7 +45,7 @@ class ExamRepoImpl implements ExamRepo{
   @override
   Future<Either<Failure, List<QuestionModel>>> getExamQuestions(String exam_id) async{
     try{
-      final token = UserLocalStorage.getToken() ?? "";
+      final token = userLocalStorage.getToken() ?? "";
       if(token == null){print("no user found");}
       return right(await examRemoteDs.getExamQuestions(exam_id,token));
     }

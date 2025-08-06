@@ -15,6 +15,7 @@ import 'package:online_exam_app_f/features/exam/domain/usecases/get_questions_us
 import 'package:online_exam_app_f/features/exam/domain/usecases/get_subjects_usecase.dart';
 import 'package:online_exam_app_f/features/exam/domain/usecases/search_subjects_usecase.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
+import 'package:online_exam_app_f/features/profile/data/datasources/user_local_storage.dart';
 import 'package:online_exam_app_f/features/profile/domain/usecases/update_profile_usecase.dart';
 import 'package:online_exam_app_f/features/results/data/data_sources/result_local_ds.dart';
 import 'package:online_exam_app_f/features/results/presentation/bloc/result_bloc.dart';
@@ -83,7 +84,7 @@ void setupLocator() {
 
   // Exam Repository
   sl.registerLazySingleton<ExamRepo>(
-        () => ExamRepoImpl(sl<ExamRemoteDs>()),
+        () => ExamRepoImpl(sl<ExamRemoteDs>(),sl<UserLocalStorage>()),
   );
 
   // Exam UseCases
