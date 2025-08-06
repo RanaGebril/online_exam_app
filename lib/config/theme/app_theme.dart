@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import 'app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'font_style_manager.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: AppBarTheme(
       foregroundColor: AppColors.white,
-      elevation: 4.0,
+      elevation: 0,
       centerTitle: false,
       iconTheme: IconThemeData(color: AppColors.black),
       titleTextStyle: GoogleFonts.roboto(
@@ -53,5 +56,20 @@ class AppTheme {
       hintStyle: GoogleFonts.roboto(color: AppColors.black[40], fontSize: 14),
       contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     ),
+
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.lightBlue,
+      selectedItemColor: AppColors.blue,
+      unselectedItemColor: AppColors.blue,
+      showUnselectedLabels: true,
+      selectedLabelStyle:getMediumStyle(color: AppColors.blue,
+        fontSize: FontSize.s12
+       ),
+      unselectedLabelStyle: getMediumStyle(color: AppColors.blue,
+          fontSize: FontSize.s12
+      ),
+      type: BottomNavigationBarType.fixed
+    )
   );
 }

@@ -1,10 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam_app_f/config/theme/font_style_manager.dart';
+import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import '../../../../../config/routes_manager/app_routes.dart';
 import '../../../../../config/theme/app_colors.dart';
 import '../../../../../shared/HomeLayout.dart';
+
 import '../../../../profile/data/datasources/user_local_storage.dart';
+
+import '../../../../exam/presentation/screens/home_layout.dart';
+
 import '../../../data/datasources.dart';
 import '../../../data/remote/auth_api_client.dart';
 import '../../../data/repositories.dart';
@@ -91,7 +97,10 @@ class LoginPage extends StatelessWidget {
                             },
                             child: Text(
                               "Forget password?",
-                              style: Theme.of(context).textTheme.headlineSmall,
+                              style: getRegularStyle(color: AppColors.black,
+                              fontSize: FontSize.s14).copyWith(
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
                         ],
@@ -106,7 +115,7 @@ class LoginPage extends StatelessWidget {
                             if (state is LoginSuccess) {
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (_) => MainLayout(initialIndex: 2)),
+                                MaterialPageRoute(builder: (_) => HomeLayout()),
                               );
                             } else if (state is LoginFailure) {
                               ScaffoldMessenger.of(context).showSnackBar(

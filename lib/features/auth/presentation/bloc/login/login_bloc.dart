@@ -6,7 +6,6 @@ import '../../../domain/usecases.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
-
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LogicUserCase loginUseCase;
   final SaveUserUseCase saveUserUseCase;
@@ -17,7 +16,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final user = await loginUseCase(event.email, event.password);
         final profile = UserProfileModel.fromUserModel(user as UserModel);
+
         await saveUserUseCase(profile);
+
+
+        print("👌👌👌👌👌👌👌👌👌👌👌👌👌");
+        print(profile.token);
+        await UserLocalStorage.saveUser(profile);
+
         emit(LoginSuccess());
       } catch (e) {
         emit(LoginFailure(e.toString()));
