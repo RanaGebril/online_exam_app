@@ -50,7 +50,7 @@ class ExamCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          exam.title,
+                          exam.title??"",
                           style: getMediumStyle(
                             color: AppColors.black,
                             fontSize: 16,

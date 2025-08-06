@@ -107,7 +107,9 @@ class ReviewExamScreen extends StatelessWidget {
 
                                 Color containerBorderColor = AppColors.lightBlue;
                                 if (isSelected) {
-                                  containerColor = isCorrect ? AppColors.green : AppColors.red;
+                                  containerBorderColor = isCorrect ? AppColors.green : AppColors.red;
+                                } else if (isCorrectAnswer) {
+                                  containerBorderColor = AppColors.green;
                                 }
 
                                 Color iconColor = AppColors.blue;
@@ -122,7 +124,11 @@ class ReviewExamScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: containerBorderColor,
+                                    color: containerColor,
+                                    border: Border.all(
+                                      width: 1,
+                                      color: containerBorderColor
+                                    )
 
                                   ),
                                   child: Row(
