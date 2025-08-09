@@ -1,12 +1,12 @@
 class ExamModel {
   String id;
-  String title;
-  int questionsNum;
-  int duration;
+  String? title;
+  int? questionsNum;
+  int? duration;
 
   ExamModel({
-    required this.questionsNum,
+     this.questionsNum,
     required this.id,
-    required this.title,
-    required this.duration});
+     this.title,
+     this.duration});
 }

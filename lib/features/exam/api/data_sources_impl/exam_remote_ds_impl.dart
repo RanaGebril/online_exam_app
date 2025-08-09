@@ -12,24 +12,19 @@ class ExamRemoteDsImpl implements ExamRemoteDs {
   ExamRemoteDsImpl(this.examApiClient);
 
   @override
-  Future<List<SubjectModel>> getSubjects() async {
-    final token = UserLocalStorage.getToken() ?? "";
-    // print("🟢 Token used in request: Bearer $token");
-
+  Future<List<SubjectModel>> getSubjects(String token) async {
     final subjectsRes = await examApiClient.getSubjects(token);
     return subjectsRes.subjects?.map((subjectDTO) => subjectDTO.toSubjectModel()).toList() ?? [];
   }
 
   @override
-  Future<List<ExamModel>> getExamsBySubject(String subjectId) async {
-    final token = UserLocalStorage.getToken() ?? "";
+  Future<List<ExamModel>> getExamsBySubject(String subjectId,String token) async {
     final examsRes = await examApiClient.getExamsBySubject(subjectId, token);
     return examsRes.exams?.map((examDTO) => examDTO.toExamModel()).toList() ?? [];
   }
 
   @override
-  Future<List<QuestionModel>> getExamQuestions(String examId) async {
-    final token = UserLocalStorage.getUser()?.token ?? "";
+  Future<List<QuestionModel>> getExamQuestions(String examId,String token) async {
     final questionRes = await examApiClient.getExamsQuestions(token, examId);
     return questionRes.questions?.map((questionDTO) => questionDTO.toQuestionModel()).toList() ?? [];
   }

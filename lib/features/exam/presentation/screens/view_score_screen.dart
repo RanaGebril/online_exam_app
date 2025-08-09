@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam_app_f/config/routes_manager/app_routes.dart';
 import 'package:online_exam_app_f/config/theme/app_colors.dart';
 import 'package:online_exam_app_f/config/theme/font_style_manager.dart';
 import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
@@ -129,7 +130,9 @@ class ViewScoreScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     )),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.result);
+                },
                 child: Text(
                   Constants.showResults,
                   style: getMediumStyle(

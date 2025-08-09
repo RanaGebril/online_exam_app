@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:online_exam_app_f/features/auth/data/datasources.dart';
 import 'package:online_exam_app_f/features/auth/data/remote/auth_api_client.dart';
 import 'package:online_exam_app_f/features/auth/data/repositories.dart';
@@ -14,11 +15,18 @@ import 'package:online_exam_app_f/features/exam/domain/usecases/get_questions_us
 import 'package:online_exam_app_f/features/exam/domain/usecases/get_subjects_usecase.dart';
 import 'package:online_exam_app_f/features/exam/domain/usecases/search_subjects_usecase.dart';
 import 'package:online_exam_app_f/features/exam/presentation/bloc/exam_bloc.dart';
+import 'package:online_exam_app_f/features/profile/data/datasources/user_local_storage.dart';
 import 'package:online_exam_app_f/features/profile/domain/usecases/update_profile_usecase.dart';
+import 'package:online_exam_app_f/features/results/data/data_sources/result_local_ds.dart';
+import 'package:online_exam_app_f/features/results/presentation/bloc/result_bloc.dart';
 
 import '../../features/exam/api/data_sources_impl/exam_remote_ds_impl.dart';
 import '../../features/exam/data/repos_impl/exam_repo_impl.dart';
 import '../../features/exam/presentation/bloc/questions/questions_bloc.dart';
+import '../../features/results/data/repo/results_repo_impl.dart';
+import '../../features/results/domain/repo/results_repo.dart';
+import '../../features/results/domain/usecases/get_result_usecase.dart';
+import '../../features/results/domain/usecases/save_result_usecase.dart';
 
 final sl = GetIt.instance; // sl = service locator
 
@@ -76,7 +84,7 @@ void setupLocator() {
 
   // Exam Repository
   sl.registerLazySingleton<ExamRepo>(
-        () => ExamRepoImpl(sl<ExamRemoteDs>()),
+        () => ExamRepoImpl(sl<ExamRemoteDs>(),sl<UserLocalStorage>()),
   );
 
   // Exam UseCases
@@ -109,4 +117,40 @@ void setupLocator() {
   // Question Bloc
   sl.registerFactory<QuestionBloc>(() => QuestionBloc(
     sl<GetQuestionsUsecase>()));
+
+//===============================================//
+//   result data source
+  sl.registerLazySingleton<ResultsLocalDs>(() => ResultsLocalDs());
+
+  // result repo
+  sl.registerLazySingleton<ResultsRepo>(() => ResultsRepoImpl(sl<ResultsLocalDs>()));
+
+  // result usecase
+  sl.registerLazySingleton<SaveResultUsecase>(() => SaveResultUsecase(sl<ResultsRepo>()));
+  sl.registerLazySingleton<GetResultsUsecase>(() => GetResultsUsecase(sl<ResultsRepo>()));
+
+  //result bloc
+  sl.registerFactory<ResultBloc>(() => ResultBloc(sl<SaveResultUsecase>(), sl<GetResultsUsecase>()));
+  // // result Repository
+  // sl.registerLazySingleton<ResultsRepo>(
+  //       () => ResultsRepoImpl(sl<Box<ExamResultHiveModel>>()),
+  // );
+  //
+  // // result UseCases
+  // sl.registerLazySingleton<SaveResultUsecase>(
+  //       () => SaveResultUsecase(sl<ResultsRepo>()),
+  // );
+  //
+  // sl.registerLazySingleton<GetResultsUsecase>(
+  //       () => GetResultsUsecase(sl<ResultsRepo>()),
+  // );;
+  //
+  // // Exam Bloc
+  // sl.registerFactory<ResultBloc>(
+  //       () => ResultBloc(
+  //     sl<SaveResultUsecase>(),
+  //     sl<GetResultsUsecase>(),
+  //   ),
+  // );
+  //
 }

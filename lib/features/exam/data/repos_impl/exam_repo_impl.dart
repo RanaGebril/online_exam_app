@@ -7,16 +7,20 @@ import 'package:online_exam_app_f/features/exam/domain/model/subject_model.dart'
 import 'package:online_exam_app_f/features/exam/domain/repos/exam_repo.dart';
 import 'package:online_exam_app_f/features/exam/domain/model/question_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:online_exam_app_f/features/profile/data/datasources/user_local_storage.dart';
 
 
 class ExamRepoImpl implements ExamRepo{
   ExamRemoteDs examRemoteDs;
-  ExamRepoImpl(this.examRemoteDs);
+  final UserLocalStorage userLocalStorage;
+  ExamRepoImpl(this.examRemoteDs,this.userLocalStorage);
 
   @override
   Future<Either<Failure, List<SubjectModel>>> getSubjects() async{
     try {
-      return right(await examRemoteDs.getSubjects());
+      final token = userLocalStorage.getToken() ?? "";
+      if(token == null){print("no user found");}
+      return right(await examRemoteDs.getSubjects(token));
     }
     catch (e) {
       print(e);
@@ -28,7 +32,9 @@ class ExamRepoImpl implements ExamRepo{
   @override
   Future<Either<Failure, List<ExamModel>>> getExamsBySubject(String subject_id) async{
     try{
-      return right(await examRemoteDs.getExamsBySubject(subject_id));
+      final token = userLocalStorage.getToken() ?? "";
+      if(token == null){print("no user found");}
+      return right(await examRemoteDs.getExamsBySubject(subject_id,token));
     }
     catch(e){
       return left(ServerFailure("Error loading exams"));
@@ -39,7 +45,9 @@ class ExamRepoImpl implements ExamRepo{
   @override
   Future<Either<Failure, List<QuestionModel>>> getExamQuestions(String exam_id) async{
     try{
-      return right(await examRemoteDs.getExamQuestions(exam_id));
+      final token = userLocalStorage.getToken() ?? "";
+      if(token == null){print("no user found");}
+      return right(await examRemoteDs.getExamQuestions(exam_id,token));
     }
     catch(e){
       return left(ServerFailure("Error loading questions"));
