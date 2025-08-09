@@ -6,7 +6,11 @@ import 'package:online_exam_app_f/config/theme/fonts_manager.dart';
 import '../../../../../config/routes_manager/app_routes.dart';
 import '../../../../../config/theme/app_colors.dart';
 import '../../../../../shared/HomeLayout.dart';
+
+import '../../../../profile/data/datasources/user_local_storage.dart';
+
 import '../../../../exam/presentation/screens/home_layout.dart';
+
 import '../../../data/datasources.dart';
 import '../../../data/remote/auth_api_client.dart';
 import '../../../data/repositories.dart';
@@ -29,7 +33,8 @@ class LoginPage extends StatelessWidget {
         final datasource = AuthRemoteDatasource(apiClient,dio);
         final repository = AuthRepositoryImpl(datasource);
         final useCase = LogicUserCase(repository);
-        return LoginBloc(useCase);
+        final saveUserUseCase = SaveUserUseCase();
+        return LoginBloc(useCase,saveUserUseCase);
       },
       child: Scaffold(
         appBar: AppBar(title: Text("Login")),

@@ -71,7 +71,6 @@ class _ProfilePageState extends State<ProfilePage> {
         email: emailController.text.trim(),
         phone: phoneController.text.trim(),
       );
-
       await UserLocalStorage.saveUser(updatedUser);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Profile updated successfully ✅")),

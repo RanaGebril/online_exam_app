@@ -24,6 +24,12 @@ class UserLocalStorage {
     return _box.containsKey('userData');
   }
 
+}
+class SaveUserUseCase {
+  Future<void> call(UserProfileModel user) async {
+    await UserLocalStorage.saveUser(user);
+  }
+
   static String? getToken() {
     final data = _box.get('userData');
     if (data != null) {
@@ -32,5 +38,6 @@ class UserLocalStorage {
     }
     return null;
   }
+
 
 }
