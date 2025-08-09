@@ -29,4 +29,15 @@ class SaveUserUseCase {
   Future<void> call(UserProfileModel user) async {
     await UserLocalStorage.saveUser(user);
   }
+
+  static String? getToken() {
+    final data = _box.get('userData');
+    if (data != null) {
+      final user = UserProfileModel.fromJson(Map<String, dynamic>.from(data));
+      return user.token; // تأكد أن UserProfileModel يحتوي على حقل token
+    }
+    return null;
+  }
+
+
 }

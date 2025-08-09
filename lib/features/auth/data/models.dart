@@ -1,4 +1,3 @@
-
 import '../domain/entities.dart';
 
 class UserModel extends UserEntity {
@@ -26,8 +25,10 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     final user = json['user'] ?? {};
+
     return UserModel(
       id: user['id']?.toString() ?? "",
+
       username: user['username'] ?? "",
       email: user['email'] ?? "",
       name: '${user['firstName'] ?? ""} ${user['lastName'] ?? ""}',
@@ -36,6 +37,20 @@ class UserModel extends UserEntity {
       firstName: user['firstName'] ?? "",
       lastName: user['lastName'] ?? "",
     );
+    print("UserModel created: id=${model.id}, token=${model.token}");
+    return model;
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'name': name,
+      'firstName': firstName,
+      'lastName': lastName,
+      'phone': phone,
+      'token': token,
+    };
+  }
 }
