@@ -14,8 +14,8 @@ abstract class AuthApiClient {
 
   @POST(ApiEndPionts.signupEndPoint)
   Future<UserModel> signup(@Body() Map<String, dynamic> body);
-  
-  @POST( ApiEndPionts.forgetpasswordEndPoint)
+
+  @POST(ApiEndPionts.forgetpasswordEndPoint)
   Future<void> forgetpassword(@Body() Map<String, dynamic> body);
 
   @POST(ApiEndPionts.verifyresetcodeEndPoint)

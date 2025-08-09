@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:online_exam_app_f/features/auth/data/remote/auth_api_client.dart';
 
+import '../../../core/utils/constants/api_endpoint.dart';
 import 'models.dart';
 
 class AuthRemoteDatasource {
@@ -34,9 +35,16 @@ class AuthRemoteDatasource {
       "phone": phone,
     });
   }
-  Future<void> forgetpassword(String email) async {
-    await apiClient.forgetpassword({"email": email});
+  Future<void> forgotPassword(String email) {
+    final body = {"email": email};
+
+    print("🔹 Sending Forgot Password request...");
+    print("🔹 URL: ${ApiEndPionts.baseUrl}${ApiEndPionts.forgetpasswordEndPoint}");
+    print("🔹 Body: $body");
+
+    return apiClient.forgetpassword(body);
   }
+
   Future<void> verifyResetCode(String code) async {
     await apiClient.verifyResetCode({"resetCode": code});
   }

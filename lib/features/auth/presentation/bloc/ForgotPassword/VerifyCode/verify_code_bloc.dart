@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam_app_f/features/auth/presentation/bloc/ForgotPassword/VerifyCode/verify_code_event.dart';
 import 'package:online_exam_app_f/features/auth/presentation/bloc/ForgotPassword/VerifyCode/verify_code_state.dart';
@@ -14,8 +15,13 @@ class VerifyCodeBloc extends Bloc<VerifyCodeEvent, VerifyCodeState> {
         await useCase(event.code);
         emit(VerifySuccess());
       } catch (e) {
-        emit(VerifyFailure(e.toString()));
+        String errorMessage = "Something went wrong";
+        if (e is DioException) {
+          errorMessage = e.response?.data["message"] ?? errorMessage;
+        }
+        emit(VerifyFailure(errorMessage));
       }
+
     });
   }
 }

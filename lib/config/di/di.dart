@@ -5,6 +5,8 @@ import '../../features/auth/data/remote/auth_api_client.dart';
 import '../../features/auth/data/repositories.dart';
 import '../../features/auth/domain/usecases.dart';
 import '../../features/auth/presentation/bloc/ForgotPassword/UseCase/ForgotPasswordUseCase.dart';
+import '../../features/auth/presentation/bloc/ForgotPassword/UseCase/reset_password_usecase.dart';
+import '../../features/auth/presentation/bloc/ForgotPassword/UseCase/verify_reset_code_use_case.dart';
 import '../../features/profile/domain/usecases/update_profile_usecase.dart';
 
 final sl = GetIt.instance; // sl = service locator
@@ -36,6 +38,13 @@ void setupLocator() {
 
   sl.registerLazySingleton<SignupUseCase>(
         () => SignupUseCase(sl<AuthRepositoryImpl>()),
+  );
+  sl.registerLazySingleton<VerifyResetCodeUseCase>(
+        () => VerifyResetCodeUseCase(sl<AuthRepositoryImpl>()),
+  );
+
+  sl.registerLazySingleton<ResetPasswordUseCase>(
+        () => ResetPasswordUseCase(sl<AuthRepositoryImpl>()),
   );
 
   sl.registerLazySingleton<UpdateUserUseCase>(
