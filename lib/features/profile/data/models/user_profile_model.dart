@@ -14,7 +14,7 @@ class UserProfileModel {
     required this.lastName,
     required this.email,
     required this.phone,
-     this.token,
+     this.token, required String id,
   });
 
   factory UserProfileModel.fromUserModel(UserModel user) {
@@ -24,7 +24,7 @@ class UserProfileModel {
       lastName: user.lastName,
       email: user.email,
       phone: user.phone,
-      token: user.token,
+      token: user.token, id: '',
     );
   }
 
@@ -35,7 +35,7 @@ class UserProfileModel {
       lastName: json['lastName'],
       email: json['email'],
       phone: json['phone'],
-        token: json['token'] ?? ""
+        token: json['token'] ?? "", id: ''
     );
   }
 

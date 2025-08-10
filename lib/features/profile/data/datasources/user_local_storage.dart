@@ -34,7 +34,7 @@ class SaveUserUseCase {
     final data = _box.get('userData');
     if (data != null) {
       final user = UserProfileModel.fromJson(Map<String, dynamic>.from(data));
-      return user.token; // تأكد أن UserProfileModel يحتوي على حقل token
+      return user.token;
     }
     return null;
   }
